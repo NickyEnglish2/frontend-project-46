@@ -1,0 +1,35 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "Gendiff is a software, that gets differences between two file structures",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickyEnglish2/frontend-project-46.git"
+  },
+  "keywords": [
+    "gendiff"
+  ],
+  "author": "NickyEnglish2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NickyEnglish2/frontend-project-46/issues"
+  },
+  "homepage": "https://github.com/NickyEnglish2/frontend-project-46#readme",
+  "devDependencies": {
+    "@eslint/create-config": "^1.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "globals": "^15.9.0"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  }
+}
