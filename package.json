@@ -6,7 +6,7 @@
     "gendiff": "bin/gendiff.js"
   },
   "type": "module",
-  "main": "index.js",
+  "main": "./bin/gendiff.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,7 +27,8 @@
     "@eslint/create-config": "^1.0.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
-    "globals": "^15.9.0"
+    "globals": "^15.9.0",
+    "yaml": "^2.5.1"
   },
   "dependencies": {
     "commander": "^12.1.0"
