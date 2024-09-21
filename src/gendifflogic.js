@@ -1,28 +1,32 @@
 import _ from 'lodash';
 import parseFile from './parse.js';
 
-const genDiff = (file1, file2) => {
-  const parsedFile1 = parseFile(file1);
-  const parsedFile2 = parseFile(file2);
-  const file1Keys = _.keys(parsedFile1);
-  const file2Keys = _.keys(parsedFile2);
-  const allKeysUnited = _.union(file1Keys, file2Keys);
-
-  const result = allKeysUnited.reduce((acc, key) => {
-    if (_.has(parsedFile1, key) && _.has(parsedFile2, key)) {
-      if (parsedFile1[key] === parsedFile2[key]) {
-        acc.push(`  ${key}: ${parsedFile1[key]}`);
+const compareValues = (unitedKeys, obj1, obj2) => {
+  const result = unitedKeys.reduce((acc, key) => {
+    if (_.has(obj1, key) && _.has(obj2, key)) {
+      if (obj1[key] === obj2[key]) {
+        acc.push(`  ${key}: ${obj1[key]}`);
       } else {
-        acc.push(`- ${key}: ${parsedFile1[key]}`);
-        acc.push(`+ ${key}: ${parsedFile2[key]}`);
+        acc.push(`- ${key}: ${obj1[key]}`);
+        acc.push(`+ ${key}: ${obj2[key]}`);
       }
-    } else if (_.has(parsedFile1, key)) {
-      acc.push(`- ${key}: ${parsedFile1[key]}`);
-    } else if (_.has(parsedFile2, key)) {
-      acc.push(`+ ${key}: ${parsedFile2[key]}`);
+    } else if (_.has(obj1, key)) {
+      acc.push(`- ${key}: ${obj1[key]}`);
+    } else if (_.has(obj2, key)) {
+      acc.push(`+ ${key}: ${obj2[key]}`);
     }
     return acc;
   }, []);
+
+  return result;
+};
+
+const genDiff = (file1, file2) => {
+  const parsedFile1 = parseFile(file1);
+  const parsedFile2 = parseFile(file2);
+  const allKeysUnited = _.union(_.keys(parsedFile1), _.keys(parsedFile2));
+
+  const result = compareValues(allKeysUnited, parsedFile1, parsedFile2);
 
   const sortedResult = _.sortBy(result, (item) => {
     const key = item.replace(/[-+ ]/g, '').split(':')[0];
