@@ -4,7 +4,9 @@ import parseFile from './parse.js';
 const genDiff = (file1, file2) => {
   const parsedFile1 = parseFile(file1);
   const parsedFile2 = parseFile(file2);
-  const allKeysUnited = _.union(_.keys(parsedFile1), _.keys(parsedFile2));
+  const file1Keys = _.keys(parsedFile1);
+  const file2Keys = _.keys(parsedFile2);
+  const allKeysUnited = _.union(file1Keys, file2Keys);
 
   const result = allKeysUnited.reduce((acc, key) => {
     if (_.has(parsedFile1, key) && _.has(parsedFile2, key)) {
