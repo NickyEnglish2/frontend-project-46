@@ -1,0 +1,5 @@
+apis:
+  - name: login
+    port: 8080
+  - name: profile
+    port: 8090
