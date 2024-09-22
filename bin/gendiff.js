@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { Command } from 'commander';
 import genDiff from '../src/gendifflogic.js';
 
@@ -13,6 +12,7 @@ program
   .option('-f, --format [type]', 'output format')
   .action((filepath1, filepath2) => {
     console.log(genDiff(filepath1, filepath2));
+    return genDiff(filepath1, filepath2);
   });
 
-program.parse();
+export default program;
