@@ -1,6 +1,10 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/NickyEnglish2/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/NickyEnglish2/frontend-project-46/actions)
 
+[![Gendiff testing](https://github.com/NickyEnglish2/frontend-project-46/actions/workflows/gendiff.yml/badge.svg)](https://github.com/NickyEnglish2/frontend-project-46/actions/workflows/gendiff.yml)
+
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8d69c1f0af98b555f873/test_coverage)](https://codeclimate.com/github/NickyEnglish2/frontend-project-46/test_coverage)
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/8d69c1f0af98b555f873/maintainability)](https://codeclimate.com/github/NickyEnglish2/frontend-project-46/maintainability)
 
 GenDiff ver 0.0.1
