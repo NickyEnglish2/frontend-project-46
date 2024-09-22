@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  lint-and-test:
+  gendiff-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -17,3 +17,10 @@ jobs:
 
       - name: Run Make commands
         run: make lint test
+
+      - name: Upload coverage to Code Climate
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        run: |
+          npm install -g codeclimate-test-reporter
+          codeclimate-test-reporter < coverage/lcov.info
