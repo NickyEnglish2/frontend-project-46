@@ -38,4 +38,6 @@ jobs:
 
       - name: After build - Code Climate Reporter
         if: always()
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: ./cc-test-reporter after-build --exit-code ${{ job.status == 'failure' && '1' || '0' }}
