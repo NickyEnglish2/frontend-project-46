@@ -1,5 +1,19 @@
 import _ from 'lodash';
-import parseFile from './parse.js';
+import path from 'path';
+import parseFileJson from './parse_json.js';
+import parseFileYaml from './parse_yml.js';
+
+const getParsingFiles = (filePath) => {
+  const fileExtension = path.extname(filePath);
+
+  if (fileExtension === '.json') {
+    return parseFileJson(filePath);
+  } if (fileExtension === '.yml' || fileExtension === '.yaml') {
+    return parseFileYaml(filePath);
+  }
+
+  throw new Error('Non supported format');
+};
 
 const compareValues = (unitedKeys, obj1, obj2) => {
   const result = unitedKeys.reduce((acc, key) => {
@@ -25,8 +39,8 @@ const compareValues = (unitedKeys, obj1, obj2) => {
 };
 
 const genDiff = (file1, file2) => {
-  const parsedFile1 = parseFile(file1);
-  const parsedFile2 = parseFile(file2);
+  const parsedFile1 = getParsingFiles(file1);
+  const parsedFile2 = getParsingFiles(file2);
   const allKeysUnited = _.union(_.keys(parsedFile1), _.keys(parsedFile2));
 
   const result = compareValues(allKeysUnited, parsedFile1, parsedFile2);

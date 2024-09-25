@@ -1,5 +1,6 @@
 import genDiff from '../src/gendifflogic.js';
-import parseFile from '../src/parse.js';
+import parseFile from '../src/parse_json.js';
+import parseFileYaml from '../src/parse_yml.js';
 
 test('testing gendiff', () => {
   expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json')).toBe('- follow: false\n  host: hexlet.io\n- proxy: 123.234.53.22\n- timeout: 50\n+ timeout: 20\n+ verbose: true');
@@ -21,9 +22,9 @@ test('testing parseFile', () => {
 test('testing parseFile yml', () => {
   /* eslint-disable-next-line */
   const expected = {"apis": [{"name": "login", "port": 8080}, {"name": "profile", "port": 8090}]};
-  expect(parseFile('__fixtures__/file3.yml')).toEqual(expected);
+  expect(parseFileYaml('__fixtures__/file3.yml')).toEqual(expected);
 });
 
-test('testing parseFile txt', () => {
-  expect(parseFile('__fixtures__/file5.txt')).toEqual('name: cindy\nlocation: Moscow\ntype: cat');
+test('testing parser for non format', () => {
+  expect(() => genDiff('__fixtures__/file5.txt', '__fixtures__/file6.txt')).toThrow(Error('Non supported format'));
 });
