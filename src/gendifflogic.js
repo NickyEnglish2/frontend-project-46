@@ -15,27 +15,37 @@ const getParsingFiles = (filePath) => {
   throw new Error('Non supported format');
 };
 
-const compareValues = (unitedKeys, obj1, obj2) => {
-  const result = unitedKeys.reduce((acc, key) => {
+const compareValues = (unitedKeys, obj1, obj2, depth = 1) => {
+  const sortedKeys = _.sortBy(unitedKeys);
+
+  const indentSize = 1;
+  const currentIndent = '  '.repeat(indentSize * depth);
+
+  const result = sortedKeys.reduce((acc, key) => {
     if (_.has(obj1, key) && _.has(obj2, key)) {
       if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
-        const nestedResult = compareValues(_.keys(obj1[key]), obj1[key], obj2[key]);
-        acc.push(...nestedResult);
+        const nestedResult = compareValues(
+          _.union(_.keys(obj1[key]), _.keys(obj2[key])),
+          obj1[key],
+          obj2[key],
+          depth + 1,
+        );
+        acc.push(`${currentIndent}${key}: {\n${nestedResult}\n${currentIndent}}`);
       } else if (obj1[key] === obj2[key]) {
-        acc.push(`  ${key}: ${obj1[key]}`);
+        acc.push(`${currentIndent}  ${key}: ${obj1[key]}`);
       } else {
-        acc.push(`- ${key}: ${obj1[key]}`);
-        acc.push(`+ ${key}: ${obj2[key]}`);
+        acc.push(`${currentIndent}- ${key}: ${obj1[key]}`);
+        acc.push(`${currentIndent}+ ${key}: ${obj2[key]}`);
       }
     } else if (_.has(obj1, key)) {
-      acc.push(`- ${key}: ${obj1[key]}`);
+      acc.push(`${currentIndent}- ${key}: ${obj1[key]}`);
     } else if (_.has(obj2, key)) {
-      acc.push(`+ ${key}: ${obj2[key]}`);
+      acc.push(`${currentIndent}+ ${key}: ${obj2[key]}`);
     }
     return acc;
   }, []);
 
-  return result;
+  return result.join('\n');
 };
 
 const genDiff = (file1, file2) => {
@@ -45,12 +55,7 @@ const genDiff = (file1, file2) => {
 
   const result = compareValues(allKeysUnited, parsedFile1, parsedFile2);
 
-  const sortedResult = _.sortBy(result, (item) => {
-    const key = item.replace(/[-+ ]/g, '').split(':')[0];
-    const file = item.startsWith('-') ? 'file1' : 'file2';
-    return `${key}_${file}`;
-  });
-  return sortedResult.join('\n');
+  return `{\n${result}\n}`;
 };
 
 export default genDiff;
