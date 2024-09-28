@@ -23,15 +23,7 @@ const compareValues = (unitedKeys, obj1, obj2, depth = 1) => {
 
   const result = sortedKeys.reduce((acc, key) => {
     if (_.has(obj1, key) && _.has(obj2, key)) {
-      if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
-        const nestedResult = compareValues(
-          _.union(_.keys(obj1[key]), _.keys(obj2[key])),
-          obj1[key],
-          obj2[key],
-          depth + 1,
-        );
-        acc.push(`${currentIndent}${key}: {\n${nestedResult}\n${currentIndent}}`);
-      } else if (obj1[key] === obj2[key]) {
+      if (obj1[key] === obj2[key]) {
         acc.push(`${currentIndent}  ${key}: ${obj1[key]}`);
       } else {
         acc.push(`${currentIndent}- ${key}: ${obj1[key]}`);
