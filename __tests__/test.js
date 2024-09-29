@@ -3,11 +3,35 @@ import parseFile from '../src/parse_json.js';
 import parseFileYaml from '../src/parse_yml.js';
 
 test('testing gendiff', () => {
-  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json')).toBe('- follow: false\n  host: hexlet.io\n- proxy: 123.234.53.22\n- timeout: 50\n+ timeout: 20\n+ verbose: true');
+  const gendiffResult = `
+{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}
+ `;
+
+  const jsonResult = genDiff('__fixtures__/file1.json', '__fixtures__/file2.json');
+  expect(jsonResult.trim()).toEqual(gendiffResult.trim());
 });
 
 test('testing gendiff yml', () => {
-  expect(genDiff('__fixtures__/file3.yml', '__fixtures__/file4.yml')).toBe('- name: profile\n  name: login\n+ name: foo\n- port: 8090\n  port: 8080\n+ port: 8010');
+  const gendiffYaml = `
+{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}
+  `;
+
+  const yamlResult = genDiff('__fixtures__/file3.yml', '__fixtures__/file4.yml');
+  expect(yamlResult.trim()).toBe(gendiffYaml.trim());
 });
 
 test('testing parseFile', () => {
@@ -20,11 +44,64 @@ test('testing parseFile', () => {
 });
 
 test('testing parseFile yml', () => {
-  /* eslint-disable-next-line */
-  const expected = {"apis": [{"name": "login", "port": 8080}, {"name": "profile", "port": 8090}]};
-  expect(parseFileYaml('__fixtures__/file3.yml')).toEqual(expected);
+  expect(parseFileYaml('__fixtures__/file3.yml')).toEqual({
+    host: 'hexlet.io',
+    timeout: 50,
+    proxy: '123.234.53.22',
+    follow: false,
+  });
 });
 
 test('testing parser for non format', () => {
   expect(() => genDiff('__fixtures__/file5.txt', '__fixtures__/file6.txt')).toThrow(Error('Non supported format'));
+});
+
+test('testing gendiff courser', () => {
+  const courserResult = `
+  {
+    common: {
+      + follow: false
+        setting1: Value 1
+      - setting2: 200
+      - setting3: true
+      + setting3: null
+      + setting4: blah blah
+      + setting5: {
+            key5: value5
+        }
+        setting6: {
+            doge: {
+              - wow: 
+              + wow: so much
+            }
+            key: value
+          + ops: vops
+        }
+    }
+    group1: {
+      - baz: bas
+      + baz: bars
+        foo: bar
+      - nest: {
+            key: value
+        }
+      + nest: str
+    }
+  - group2: {
+        abc: 12345
+        deep: {
+            id: 45
+        }
+    }
+  + group3: {
+        deep: {
+            id: {
+                number: 45
+            }
+        }
+        fee: 100500
+    }
+  }
+  `;
+  expect(genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json')).toBe(courserResult);
 });

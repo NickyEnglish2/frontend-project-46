@@ -2,6 +2,8 @@ import _ from 'lodash';
 import path from 'path';
 import parseFileJson from './parse_json.js';
 import parseFileYaml from './parse_yml.js';
+import getFormatter from './getFormatter.js';
+import compareValues from './compareValues.js';
 
 const getParsingFiles = (filePath) => {
   const fileExtension = path.extname(filePath);
@@ -15,39 +17,16 @@ const getParsingFiles = (filePath) => {
   throw new Error('Non supported format');
 };
 
-const compareValues = (unitedKeys, obj1, obj2, depth = 1) => {
-  const sortedKeys = _.sortBy(unitedKeys);
-
-  const indentSize = 1;
-  const currentIndent = '  '.repeat(indentSize * depth);
-
-  const result = sortedKeys.reduce((acc, key) => {
-    if (_.has(obj1, key) && _.has(obj2, key)) {
-      if (obj1[key] === obj2[key]) {
-        acc.push(`${currentIndent}  ${key}: ${obj1[key]}`);
-      } else {
-        acc.push(`${currentIndent}- ${key}: ${obj1[key]}`);
-        acc.push(`${currentIndent}+ ${key}: ${obj2[key]}`);
-      }
-    } else if (_.has(obj1, key)) {
-      acc.push(`${currentIndent}- ${key}: ${obj1[key]}`);
-    } else if (_.has(obj2, key)) {
-      acc.push(`${currentIndent}+ ${key}: ${obj2[key]}`);
-    }
-    return acc;
-  }, []);
-
-  return result.join('\n');
-};
-
-const genDiff = (file1, file2) => {
+const genDiff = (file1, file2, format = 'stylish') => {
   const parsedFile1 = getParsingFiles(file1);
   const parsedFile2 = getParsingFiles(file2);
   const allKeysUnited = _.union(_.keys(parsedFile1), _.keys(parsedFile2));
 
   const result = compareValues(allKeysUnited, parsedFile1, parsedFile2);
 
-  return `{\n${result}\n}`;
+  const formatter = getFormatter(format);
+
+  return formatter(result);
 };
 
 export default genDiff;
