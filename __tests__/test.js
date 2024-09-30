@@ -58,7 +58,7 @@ test('testing parser for non format', () => {
 
 test('testing gendiff courser', () => {
   const courserResult = `
-  {
+{
     common: {
       + follow: false
         setting1: Value 1
@@ -101,7 +101,7 @@ test('testing gendiff courser', () => {
         }
         fee: 100500
     }
-  }
+}
   `;
   expect(genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json')).toBe(courserResult);
 });

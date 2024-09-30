@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import path from 'path';
 import parseFileJson from './parse_json.js';
 import parseFileYaml from './parse_yml.js';
@@ -20,9 +19,8 @@ const getParsingFiles = (filePath) => {
 const genDiff = (file1, file2, format = 'stylish') => {
   const parsedFile1 = getParsingFiles(file1);
   const parsedFile2 = getParsingFiles(file2);
-  const allKeysUnited = _.union(_.keys(parsedFile1), _.keys(parsedFile2));
 
-  const result = compareValues(allKeysUnited, parsedFile1, parsedFile2);
+  const result = compareValues(parsedFile1, parsedFile2);
 
   const formatter = getFormatter(format);
 
