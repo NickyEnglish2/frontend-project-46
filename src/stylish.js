@@ -5,7 +5,7 @@ const indent = (depth, indentSize = 4) => ' '.repeat(indentSize * depth);
 const formatValue = (value, depth) => {
   if (_.isPlainObject(value)) {
     const entries = Object.entries(value).map(
-      ([key, val]) => `${indent(depth + 1)}${key}: ${formatValue(val, depth + 1)}`,
+      ([key, val]) => `${indent(depth)}${key}: ${formatValue(val, depth)}`,
     );
     return `{\n${entries.join('\n')}\n${indent(depth)}}`;
   }
@@ -31,7 +31,7 @@ const stylishFormat = (diffData) => {
           return [
             `${markerIndent}- ${node.key}: ${formatValue(node.oldValue, nextDepth)}`,
             `${markerIndent}+ ${node.key}: ${formatValue(node.newValue, nextDepth)}`,
-          ];
+          ].join('\n');
         case 'unchanged':
           return `${currentIndent}${node.key}: ${formatValue(node.value, nextDepth)}`;
         default:
