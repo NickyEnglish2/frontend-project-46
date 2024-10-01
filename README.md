@@ -12,3 +12,6 @@ https://asciinema.org/a/071isR76nmt9n1F7jMVMccFOj
 
 Gendiff yml format:
 https://asciinema.org/a/6I2kDWVO7SS5azfbYTiGLk4Gp
+
+Gendiff recourse 'stylish':
+https://asciinema.org/a/OZ9LNKw6GKpqSTtXtrzwD9swE
