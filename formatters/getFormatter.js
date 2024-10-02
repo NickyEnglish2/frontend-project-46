@@ -1,7 +1,9 @@
 import stylishFormat from './stylish.js';
+import plainFormat from './plain.js';
 
 const formatters = {
   stylish: stylishFormat,
+  plain: plainFormat,
 };
 
 const getFormatter = (format) => {

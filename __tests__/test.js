@@ -54,6 +54,23 @@ const parseResult = {
   follow: false,
 };
 
+const plainResult = `Property 'common.follow' was added with value: false
+Property 'common.setting2' was removed
+Property 'common.setting3' was updated. From true to null
+Property 'common.setting4' was added with value: 'blah blah'
+Property 'common.setting5' was added with value: [complex value]
+Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
+Property 'common.setting6.ops' was added with value: 'vops'
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group1.nest' was updated. From [complex value] to 'str'
+Property 'group2' was removed
+Property 'group3' was added with value: [complex value]`;
+
+const gendiffResult = genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json');
+const gendiffResultYml = genDiff('__fixtures__/file_recourse_1.yml', '__fixtures__/file_recourse_2.yml');
+const gendiffResultWithPlain = genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json', 'plain');
+const gendiffResultYmlPlain = genDiff('__fixtures__/file_recourse_1.yml', '__fixtures__/file_recourse_2.yml', 'plain');
+
 test('testing parseFile', () => {
   expect(parseFile('__fixtures__/file1.json')).toEqual(parseResult);
 });
@@ -67,13 +84,21 @@ test('testing parser for non format', () => {
 });
 
 test('testing gendiff courser', () => {
-  expect(genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json')).toBe(result1);
+  expect(gendiffResult).toBe(result1);
 });
 
 test('testing gendiff yaml', () => {
-  expect(genDiff('__fixtures__/file_recourse_1.yml', '__fixtures__/file_recourse_2.yml')).toBe(result1);
+  expect(gendiffResultYml).toBe(result1);
 });
 
 test('testing getformatter', () => {
   expect(() => genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json', 'konobaka')).toThrow(Error('Unknown format: konobaka'));
+});
+
+test('testing gendiff plain', () => {
+  expect(gendiffResultWithPlain).toBe(plainResult);
+});
+
+test('testing gendiff plain yml', () => {
+  expect(gendiffResultYmlPlain).toBe(plainResult);
 });
