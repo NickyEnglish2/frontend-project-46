@@ -15,3 +15,6 @@ https://asciinema.org/a/6I2kDWVO7SS5azfbYTiGLk4Gp
 
 Gendiff recourse 'stylish':
 https://asciinema.org/a/OZ9LNKw6GKpqSTtXtrzwD9swE
+
+Gendiff plain formatter;
+https://asciinema.org/a/C8FnpeH6G6uUbBDt4V6GCRuaq
