@@ -18,3 +18,6 @@ https://asciinema.org/a/OZ9LNKw6GKpqSTtXtrzwD9swE
 
 Gendiff plain formatter;
 https://asciinema.org/a/C8FnpeH6G6uUbBDt4V6GCRuaq
+
+Gendiff json formatter:
+https://asciinema.org/a/QP5MGtjp98MjgXJ1rEUbtjVlJ
