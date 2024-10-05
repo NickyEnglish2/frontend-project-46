@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Gendiff is a software, that gets differences between two file structures",
   "bin": {
-    "gendiff": "./index.js"
+    "gendiff": "./bin/gendiff.js"
   },
   "type": "module",
-  "main": "index.js",
+  "main": "bin/gendiff.js",
   "scripts": {
     "test": "npx jest --coverage"
   },

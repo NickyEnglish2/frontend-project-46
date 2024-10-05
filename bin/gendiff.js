@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import genDiff from '../src/gendifflogic.js';
 
@@ -16,4 +17,4 @@ program
     return genDiff(filepath1, filepath2, format);
   });
 
-export default program;
+program.parse(process.argv);
