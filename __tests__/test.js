@@ -48,10 +48,30 @@ const result1 = `{
 }`;
 
 const result2 = {
-  host: 'hexlet.io',
-  timeout: 50,
-  proxy: '123.234.53.22',
-  follow: false,
+  common: {
+    setting1: 'Value 1',
+    setting2: 200,
+    setting3: true,
+    setting6: {
+      key: 'value',
+      doge: {
+        wow: '',
+      },
+    },
+  },
+  group1: {
+    baz: 'bas',
+    foo: 'bar',
+    nest: {
+      key: 'value',
+    },
+  },
+  group2: {
+    abc: 12345,
+    deep: {
+      id: 45,
+    },
+  },
 };
 
 const result3 = `Property 'common.follow' was added with value: false
@@ -183,11 +203,6 @@ const result4 = `{
   }
 }`;
 
-const gendiffResult = genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json');
-const gendiffResultYml = genDiff('__fixtures__/file_recourse_1.yml', '__fixtures__/file_recourse_2.yml');
-const gendiffResultWithPlain = genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json', 'plain');
-const gendiffResultYmlPlain = genDiff('__fixtures__/file_recourse_1.yml', '__fixtures__/file_recourse_2.yml', 'plain');
-
 test('testing parseFile', () => {
   expect(parseFile('__fixtures__/file1.json')).toEqual(result2);
 });
@@ -201,25 +216,25 @@ test('testing parser for non format', () => {
 });
 
 test('testing gendiff courser', () => {
-  expect(gendiffResult).toBe(result1);
+  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json')).toBe(result1);
 });
 
 test('testing gendiff yaml', () => {
-  expect(gendiffResultYml).toBe(result1);
+  expect(genDiff('__fixtures__/file3.yml', '__fixtures__/file4.yml')).toBe(result1);
 });
 
 test('testing getformatter', () => {
-  expect(() => genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json', 'konobaka')).toThrow(Error('Unknown format: konobaka'));
+  expect(() => genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'konobaka')).toThrow(Error('Unknown format: konobaka'));
 });
 
 test('testing gendiff plain', () => {
-  expect(gendiffResultWithPlain).toBe(result3);
+  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'plain')).toBe(result3);
 });
 
 test('testing gendiff plain yml', () => {
-  expect(gendiffResultYmlPlain).toBe(result3);
+  expect(genDiff('__fixtures__/file3.yml', '__fixtures__/file4.yml', 'plain')).toBe(result3);
 });
 
 test('testing json formatter', () => {
-  expect(genDiff('__fixtures__/file_recourse_1.json', '__fixtures__/file_recourse_2.json', 'json')).toBe(result4);
+  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'json')).toBe(result4);
 });
