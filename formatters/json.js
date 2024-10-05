@@ -18,10 +18,10 @@ const jsonFormat = (diffData) => {
     }
   };
 
-  const formattedDiff = _.reduce(diffData, (acc, node) => {
-    acc[node.key] = formatNode(node);
-    return acc;
-  }, {});
+  const formattedDiff = _.reduce(diffData, (acc, node) => ({
+    ...acc,
+    [node.key]: formatNode(node),
+  }), {});
 
   return JSON.stringify(formattedDiff, null, 2);
 };

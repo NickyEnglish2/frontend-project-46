@@ -27,6 +27,14 @@ const compareValues = (obj1, obj2) => {
 
   const comparedKeys = sortedKeys.map((key) => {
     const diffType = getTypeOfDiff(obj1, obj2, key);
+
+    if (diffType === 'nested') {
+      const value1 = obj1[key];
+      const value2 = obj2[key];
+      const children = compareValues(value1, value2);
+      return { ...formattingDiff(key, obj1, obj2, diffType), children };
+    }
+
     return formattingDiff(key, obj1, obj2, diffType);
   });
 

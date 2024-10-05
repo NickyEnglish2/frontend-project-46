@@ -1,5 +1,3 @@
-import compareValues from './compareValues.js';
-
 const formattingDiff = (key, obj1, obj2, diffType) => {
   const value1 = obj1[key];
   const value2 = obj2[key];
@@ -9,7 +7,7 @@ const formattingDiff = (key, obj1, obj2, diffType) => {
       return {
         key,
         type: 'nested',
-        children: compareValues(value1, value2),
+        children: [],
       };
     case 'added':
       return { key, type: 'added', value: value2 };
