@@ -1,7 +1,7 @@
 import path from 'path';
 import parseFileJson from './parse_json.js';
 import parseFileYaml from './parse_yml.js';
-import getFormatter from '../formatters/getFormatter.js';
+import getFormatter from './formatters/getFormatter.js';
 import compareValues from './compareValues.js';
 
 const getParsingFiles = (filePath) => {
