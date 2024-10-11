@@ -1,6 +1,5 @@
 import genDiff from '../src/gendifflogic.js';
-import parseFile from '../src/parse_json.js';
-import parseFileYaml from '../src/parse_yml.js';
+import mainParsingLogic from '../src/mainParsingLogic.js';
 
 const result1 = `{
     common: {
@@ -204,11 +203,11 @@ const result4 = `{
 }`;
 
 test('testing parseFile', () => {
-  expect(parseFile('__fixtures__/file1.json')).toEqual(result2);
+  expect(mainParsingLogic('__fixtures__/file1.json')).toEqual(result2);
 });
 
 test('testing parseFile yml', () => {
-  expect(parseFileYaml('__fixtures__/file3.yml')).toEqual(result2);
+  expect(mainParsingLogic('__fixtures__/file3.yml')).toEqual(result2);
 });
 
 test('testing parser for non format', () => {
