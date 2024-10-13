@@ -1,5 +1,4 @@
 import genDiff from '../src/gendifflogic.js';
-import mainParsingLogic from '../src/mainParsingLogic.js';
 
 const result1 = `{
     common: {
@@ -45,33 +44,6 @@ const result1 = `{
         fee: 100500
     }
 }`;
-
-const result2 = {
-  common: {
-    setting1: 'Value 1',
-    setting2: 200,
-    setting3: true,
-    setting6: {
-      key: 'value',
-      doge: {
-        wow: '',
-      },
-    },
-  },
-  group1: {
-    baz: 'bas',
-    foo: 'bar',
-    nest: {
-      key: 'value',
-    },
-  },
-  group2: {
-    abc: 12345,
-    deep: {
-      id: 45,
-    },
-  },
-};
 
 const result3 = `Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
@@ -202,16 +174,8 @@ const result4 = `{
   }
 }`;
 
-test('testing parseFile', () => {
-  expect(mainParsingLogic('__fixtures__/file1.json')).toEqual(result2);
-});
-
-test('testing parseFile yml', () => {
-  expect(mainParsingLogic('__fixtures__/file3.yml')).toEqual(result2);
-});
-
 test('testing parser for non format', () => {
-  expect(() => genDiff('__fixtures__/file5.txt', '__fixtures__/file6.txt')).toThrow(Error('Non supported format'));
+  expect(() => genDiff('__fixtures__/file5.txt', '__fixtures__/file6.txt')).toThrow(Error('Non supported format of file'));
 });
 
 test('testing gendiff courser', () => {

@@ -8,15 +8,17 @@ const extractingContent = (file) => {
   const absolutePath = path.resolve(process.cwd(), file);
   const fileContent = fs.readFileSync(absolutePath, 'utf-8');
 
-  return fileContent;
+  const fileFormat = path.extname(absolutePath).slice(1);
+
+  return [fileContent, fileFormat];
 };
 
 const genDiff = (file1, file2, format = 'stylish') => {
-  const content1 = extractingContent(file1);
-  const content2 = extractingContent(file2);
+  const [content1, format1] = extractingContent(file1);
+  const [content2, format2] = extractingContent(file2);
 
-  const parsedFile1 = parser(content1);
-  const parsedFile2 = parser(content2);
+  const parsedFile1 = parser(content1, format1);
+  const parsedFile2 = parser(content2, format2);
 
   const result = compareValues(parsedFile1, parsedFile2);
 
