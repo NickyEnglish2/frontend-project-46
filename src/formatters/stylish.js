@@ -29,8 +29,8 @@ const stylishFormat = (diffData) => {
           return `${markerIndent}- ${node.key}: ${formatValue(node.value, nextDepth)}`;
         case 'changed':
           return [
-            `${markerIndent}- ${node.key}: ${formatValue(node.oldValue, nextDepth)}`,
-            `${markerIndent}+ ${node.key}: ${formatValue(node.newValue, nextDepth)}`,
+            `${markerIndent}- ${node.key}: ${formatValue(node.value, nextDepth)}`,
+            `${markerIndent}+ ${node.key}: ${formatValue(node.value1, nextDepth)}`,
           ].join('\n');
         default:
           return `${currentIndent}${node.key}: ${formatValue(node.value, nextDepth)}`;

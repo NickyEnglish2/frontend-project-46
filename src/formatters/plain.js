@@ -21,7 +21,7 @@ const plainFormat = (diffData, parent = '') => {
       case 'removed':
         return `Property '${fullPath}' was removed`;
       case 'changed':
-        return `Property '${fullPath}' was updated. From ${formatValue(entry.oldValue)} to ${formatValue(entry.newValue)}`;
+        return `Property '${fullPath}' was updated. From ${formatValue(entry.value)} to ${formatValue(entry.value1)}`;
       default:
         return [];
     }

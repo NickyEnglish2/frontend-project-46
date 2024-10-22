@@ -14,7 +14,7 @@ const jsonFormat = (diffData) => {
       case 'unchanged':
         return _.pick(node, ['key', 'type', 'value']);
       default:
-        return _.pick(node, ['key', 'type', 'oldValue', 'newValue']);
+        return _.pick(node, ['key', 'type', 'value', 'value1']);
     }
   };
 
