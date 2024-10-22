@@ -78,8 +78,8 @@ const result3 = `{
       {
         "key": "setting3",
         "type": "changed",
-        "value": true,
-        "value1": null
+        "firstValue": true,
+        "secondValue": null
       },
       {
         "key": "setting4",
@@ -104,8 +104,8 @@ const result3 = `{
               {
                 "key": "wow",
                 "type": "changed",
-                "value": "",
-                "value1": "so much"
+                "firstValue": "",
+                "secondValue": "so much"
               }
             ]
           },
@@ -130,8 +130,8 @@ const result3 = `{
       {
         "key": "baz",
         "type": "changed",
-        "value": "bas",
-        "value1": "bars"
+        "firstValue": "bas",
+        "secondValue": "bars"
       },
       {
         "key": "foo",
@@ -141,10 +141,10 @@ const result3 = `{
       {
         "key": "nest",
         "type": "changed",
-        "value": {
+        "firstValue": {
           "key": "value"
         },
-        "value1": "str"
+        "secondValue": "str"
       }
     ]
   },

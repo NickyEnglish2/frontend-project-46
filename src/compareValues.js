@@ -21,8 +21,8 @@ const compareValues = (obj1, obj2) => {
       return {
         key,
         type: 'changed',
-        value: value1,
-        value1: value2,
+        firstValue: value1,
+        secondValue: value2,
       };
     }
     return { key, type: 'unchanged', value: value1 };
